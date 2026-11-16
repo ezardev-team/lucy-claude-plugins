@@ -1,0 +1,17 @@
+{
+  "name": "lucy",
+  "version": "0.2.1",
+  "description": "Search SEC filings (10-K, 10-Q, 8-K, 20-F and more) from Claude Code with Lucy. Installs the lucy-rag MCP server (log in once, no secret) and the lucy-mcp-setup skill that checks, logs in, and verifies the connection.",
+  "author": {
+    "name": "Lucy Data",
+    "email": "help@lucydata.ai"
+  },
+  "homepage": "https://lucydata.ai",
+  "keywords": [
+    "lucy",
+    "sec",
+    "edgar",
+    "mcp",
+    "rag"
+  ]
+}

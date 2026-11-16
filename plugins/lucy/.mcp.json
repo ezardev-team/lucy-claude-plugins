@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "lucy-rag": {
+      "type": "http",
+      "url": "https://lucy-rag-mcp.ezar.co.kr/mcp",
+      "oauth": {
+        "clientId": "3cdvfm380nvnmja87eriqp0uep",
+        "callbackPort": 8088
+      }
+    }
+  }
+}

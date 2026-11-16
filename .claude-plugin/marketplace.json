@@ -1,0 +1,33 @@
+{
+  "name": "lucydata",
+  "owner": {
+    "name": "Lucy Data (Ezar Inc.)",
+    "email": "help@lucydata.ai"
+  },
+  "metadata": {
+    "description": "Claude plugins for Lucy services (SEC filings search and more).",
+    "version": "0.2.1"
+  },
+  "plugins": [
+    {
+      "name": "lucy",
+      "source": "./plugins/lucy",
+      "description": "Search SEC filings (10-K, 10-Q, 8-K, 20-F and more) from Claude Code with Lucy. Installs the lucy-rag MCP server (log in once, no secret) and the lucy-mcp-setup skill that checks, logs in, and verifies the connection.",
+      "version": "0.2.1",
+      "author": {
+        "name": "Lucy Data",
+        "email": "help@lucydata.ai"
+      },
+      "homepage": "https://lucydata.ai",
+      "category": "productivity",
+      "keywords": [
+        "lucy",
+        "sec",
+        "edgar",
+        "mcp",
+        "rag",
+        "10-K"
+      ]
+    }
+  ]
+}
