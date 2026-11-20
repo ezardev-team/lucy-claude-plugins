@@ -6,9 +6,10 @@ Users cannot see server logs. For anything below that says "contact Lucy support
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Login page shows `redirect_mismatch` | The callback URL the client sent is not one the server allows | **Claude Code**: update to 2.1.231 or newer. If Lucy was added by hand, `--callback-port 8088` was almost certainly omitted: `claude mcp remove lucy-rag -s user`, then re-add with the flag (or just use the plugin). **Codex**: the global callback setting is missing (see `other-clients.md`) |
+| Login page shows "redirect_uri not registered" (or `redirect_mismatch`) | The callback URL the client sent is not one the login server allows | **Claude Code**: update to 2.1.231 or newer. If Lucy was added by hand, `--callback-port 8088` was almost certainly omitted: `claude mcp remove lucy-rag -s user`, then re-add with the flag (or just use the plugin). **Codex**: the global callback setting is missing (see `other-clients.md`) |
 | No login page, `invalid_scope` | A disallowed scope (e.g. `profile`) was requested | Claude requests only what the server advertises, so this rarely happens. Remove any extra scopes |
-| Login succeeds but every tool call returns 401 | The account has not been approved for Lucy MCP access | Contact Lucy support to request access, then log in again (`/mcp` → `lucy-rag` → Authenticate) |
+| After login the browser lands on `lucydata.ai/solutions/rag` and the connection never completes | The account has not been approved for Lucy MCP access | Contact Lucy support to request access, then log in again (`/mcp` → `lucy-rag` → Authenticate) |
+| Login succeeds but every tool call returns 401 | Access was removed after login, or an old registration with a retired client ID | Log in again. If it persists, remove the manual entry (`claude mcp remove lucy-rag -s user`) and use the plugin, or contact Lucy support |
 | Opening `/mcp` in a browser shows `OAuth access token required` | Normal. `/mcp` is the endpoint called with a token | No action |
 | Claude Code `/mcp` → Authenticate never returns from the browser | Another process holds port 8088 | Check with `lsof -nP -iTCP:8088 -sTCP:LISTEN`, free the port, retry |
 | `needs authentication` again after weeks of use | The 30-day login expired | `/mcp` → `lucy-rag` → Authenticate |

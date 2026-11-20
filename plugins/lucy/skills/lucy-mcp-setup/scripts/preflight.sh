@@ -30,8 +30,8 @@ case "$mcp_code" in
 esac
 
 prm="$(curl -sS -m 10 "$BASE_URL/.well-known/oauth-protected-resource" 2>/dev/null)"
-if [[ "$prm" == *"$REQUIRED_SCOPE"* && "$prm" == *'"openid"'* ]]; then
-  ok "protected-resource metadata advertises openid + rag.read"
+if [[ "$prm" == *"$REQUIRED_SCOPE"* ]]; then
+  ok "protected-resource metadata advertises rag.read"
 else
   warn "protected-resource metadata missing expected scopes: $prm"
 fi
@@ -41,6 +41,11 @@ if [[ "$asm" == *'"S256"'* ]]; then
   ok "authorization-server metadata advertises PKCE S256"
 else
   warn "authorization-server metadata lacks code_challenge_methods_supported S256 (clients will refuse OAuth): ${asm:0:200}"
+fi
+if [[ "$asm" == *'"https://auth.lucydata.ai/oauth2/authorize"'* ]]; then
+  ok "login goes through auth.lucydata.ai"
+else
+  warn "authorization endpoint is not auth.lucydata.ai: ${asm:0:200}"
 fi
 
 echo
