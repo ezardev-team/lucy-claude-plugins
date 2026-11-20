@@ -7,10 +7,10 @@ Do not edit the local `claude_desktop_config.json` for this.
 ## Steps
 
 1. Open `https://claude.ai/directory/lucy-sec-filings-search` (or Settings → Connectors → Browse connectors and search for "Lucy").
-2. Press **Connect**. A Lucy login page opens (`login.lucydata.ai`). Log in.
+2. Press **Connect**. A Lucy login page opens (`auth.lucydata.ai`). Log in.
 3. To use it in a conversation, make sure the connector is toggled on in the tools (connectors) menu of the input box.
 
-The account must be approved for Lucy MCP access. Without approval the login succeeds but tool calls are rejected; see the access request in `troubleshooting.md`.
+The account must be approved for Lucy MCP access. Without approval the login page sends the user to `https://lucydata.ai/solutions/rag` instead of connecting; see the access request in `troubleshooting.md`.
 
 ## When the tool description changes
 

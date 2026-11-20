@@ -14,13 +14,13 @@ Codex can use the same server and client ID. The account must be approved for Lu
 2. Register:
    ```bash
    codex mcp add lucy-rag --url https://lucy-rag-mcp.ezar.co.kr/mcp \
-     --oauth-client-id 3cdvfm380nvnmja87eriqp0uep \
+     --oauth-client-id lucy-mcp-cli \
      --oauth-resource https://lucy-rag-mcp.ezar.co.kr/mcp
    ```
    If a login wait starts right after registering, press `Ctrl+C` and continue to step 3.
 3. Log in:
    ```bash
-   codex mcp login lucy-rag --scopes "openid,https://lucy-rag-mcp.ezar.co.kr/mcp/rag.read"
+   codex mcp login lucy-rag --scopes "https://lucy-rag-mcp.ezar.co.kr/mcp/rag.read"
    ```
    On success the Auth column of `codex mcp list` reads `OAuth`.
-4. On `redirect_mismatch`, send the `redirect_uri` from the login URL to Lucy support (help@lucydata.ai).
+4. On a "redirect_uri not registered" page, send the `redirect_uri` from the login URL to Lucy support (help@lucydata.ai).

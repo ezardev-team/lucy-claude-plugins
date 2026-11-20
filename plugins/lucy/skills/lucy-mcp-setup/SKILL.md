@@ -16,18 +16,19 @@ The user must type their Lucy password themselves; everything else (checks, comm
 | Item | Value |
 |---|---|
 | MCP server URL | `https://lucy-rag-mcp.ezar.co.kr/mcp` |
-| OAuth client ID — Claude Code / Codex | `3cdvfm380nvnmja87eriqp0uep` (no secret) |
+| OAuth client ID — Claude Code / Codex | `lucy-mcp-cli` (public, no secret) |
 | Claude Code callback port | `8088` (`http://localhost:8088/callback`) |
-| Scopes | `openid`, `https://lucy-rag-mcp.ezar.co.kr/mcp/rag.read` |
+| Login server | `https://auth.lucydata.ai` (Lucy sign-in; the MCP server discovers it automatically) |
+| Scopes | `https://lucy-rag-mcp.ezar.co.kr/mcp/rag.read` |
 | Tool | `rag_context(question, thread_id?)` |
 
-**Every route needs a Lucy account approved for MCP access** (request it from help@lucydata.ai; the request text is in `references/troubleshooting.md`). Without approval, login succeeds but tool calls return 401.
+**Every route needs a Lucy account approved for MCP access** (request it from help@lucydata.ai; the request text is in `references/troubleshooting.md`). Without approval, the login page sends the user to `https://lucydata.ai/solutions/rag` instead of completing the connection.
 
 ## Step 1. Preflight
 
 Run `scripts/preflight.sh` first. It is read-only and checks:
 
-- Server reachability (`/health`) and the OAuth discovery documents (PKCE S256 advertised, scopes)
+- Server reachability (`/health`) and the OAuth discovery documents (PKCE S256 advertised, login at `auth.lucydata.ai`, scopes)
 - Whether the `claude` CLI exists and `claude mcp add` supports the OAuth flags
 - Any Lucy server already registered (`claude mcp list` entries matching `lucy-rag-mcp.ezar.co.kr`)
 - Whether callback port 8088 is in use
@@ -62,7 +63,7 @@ Without the plugin (or if the user wants it at user scope under their own name),
 
 ```bash
 claude mcp add --transport http --scope user \
-  --client-id 3cdvfm380nvnmja87eriqp0uep --callback-port 8088 \
+  --client-id lucy-mcp-cli --callback-port 8088 \
   lucy-rag https://lucy-rag-mcp.ezar.co.kr/mcp
 ```
 
@@ -78,10 +79,10 @@ A GUI procedure the user performs. Use the **directory connector** (`https://cla
 
 ## Step 4. Login
 
-- **Claude Code**: in a new (or the current) session, `/mcp` → `lucy-rag` → **Authenticate**. A Lucy login page opens in the browser on the `login.lucydata.ai` domain.
+- **Claude Code**: in a new (or the current) session, `/mcp` → `lucy-rag` → **Authenticate**. A Lucy login page opens in the browser on the `auth.lucydata.ai` domain.
 - **claude.ai**: the Connect button is the login.
 
-If login fails, take the exact error text and look it up in `references/troubleshooting.md`. `redirect_mismatch`, `invalid_scope`, and a 401 after login cover almost every case.
+If login fails, take the exact error text and look it up in `references/troubleshooting.md`. A "redirect_uri not registered" page, `invalid_scope`, and being sent to `lucydata.ai/solutions/rag` (no access yet) cover almost every case.
 
 ## Step 5. Verify
 
